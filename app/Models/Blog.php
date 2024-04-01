@@ -16,4 +16,10 @@ class Blog extends Model
         'author', 
         'image'
     ];
+
+    protected $casts = [
+        'record' => 'array',
+    ];
+
+    
 }
