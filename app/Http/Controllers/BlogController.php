@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Services\BlogService;
 use App\Http\Resources\BlogResource;
 use App\Http\Resources\EmptyResource;
-use App\Models\Blog;
+
 
 class BlogController extends Controller
 {
@@ -21,9 +21,11 @@ class BlogController extends Controller
     public function show(string $id)
     {
         $data = $this->service->find($id);
-        if($data===null)
-        {
-            return (new EmptyResource($data))->response();
+        if($data===null) {
+            return response()->json([
+                'status'=>404,
+                "message"=>"文章不存在"
+            ], 404);
         }
         return BlogResource::make($data)->response();
     }
@@ -31,8 +33,7 @@ class BlogController extends Controller
     public function index()
     {
         $data = $this->service->all();
-        if($data === null)
-        {
+        if($data === null) {
             return response()->json([
                 'status'=>200,
                 "message"=>"暂无任何内容"

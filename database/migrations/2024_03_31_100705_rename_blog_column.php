@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::table('blogs', function (Blueprint $table) {
             //
             $table->renameColumn('record','records');
-            $table->renameColumn('author', 'author_id');
 
         });
     }
@@ -31,7 +30,7 @@ return new class extends Migration
         Schema::table('blogs', function (Blueprint $table) {
             //
             $table->renameColumn('record','records');
-            $table->renameColumn('author', 'author_id');
+            // $table->renameColumn('author', 'author_id');
         });
     }
 };
