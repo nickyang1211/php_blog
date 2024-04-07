@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\BlogService;
 use App\Http\Resources\BlogResource;
-use App\Http\Resources\EmptyResource;
 
 
 class BlogController extends Controller
