@@ -20,20 +20,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware('userAuth')->resource('blogs', BlogController::class, ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
+Route::middleware('userAuth')->resource('users', UserController::class, ['only' => ['show', 'update', 'destroy']])->parameter('users', 'userId');
+
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('/register', [UserController::class, 'store']);
+    Route::post('/login', [UserController::class, 'login']);
+    Route::post('/logout', [UserController::class, 'logout']);
+});
+
 Route::controller(BlogController::class)
+->middleware('userAuth')
 ->group(function () {
     Route::get('/','index');
     Route::get('/{id}','show');
     Route::post('/','store');
     Route::put('/{id}','update');
     Route::delete('/','destroy');
-});
-
-
-Route::controller(UserController::class)
-->group(function () {
-    Route::get('/user/{id}','show');
-    Route::post('/user','store');
-    Route::put('/user/{id}','update');
-    Route::delete('/user','destroy');
 });

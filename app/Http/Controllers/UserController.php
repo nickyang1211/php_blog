@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
+use App\Http\Requests\UserLoginRequest;
 
 class UserController extends Controller
 {
@@ -16,7 +17,20 @@ class UserController extends Controller
      {
          $this->service = $service;
      }
- 
+
+     public function login(UserLoginRequest $request)
+     {
+        $validated = $request->validated();
+        $data = $this->service->login($validated);
+        return response(new UserResource($data));
+     }
+
+     public function logout()
+    {
+        return $this->service->logout();
+    }
+
+
      public function show(string $id)
      {
          $data = $this->service->find($id);
