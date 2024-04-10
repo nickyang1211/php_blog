@@ -2,27 +2,22 @@
 
 namespace App\Repositories;
 
-use App\Models\Blog;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 
-class BlogRepository
+class UserRepository
 {
-    private Blog $model;
+    private User $model;
 
-    public function __construct(Blog $model)
+    public function __construct(User $model)
     {
         $this->model = $model;
     }
-
-    public function all() 
-    { 
-        return $this->model->get(); 
-    } 
     
     public function find(string $id) 
     { 
-        return $this->model->find($id); 
+        return $this->model::with(['blogs'])->find($id); 
     }
     
     public function create(array $validated) 
@@ -39,8 +34,8 @@ class BlogRepository
     {
         // 数据库事务处理，要不全部成功，要不全部失败
         DB::transaction(function () use ($id) {
-            $blog = $this->model->find($id);
-            $blog->delete();
+            $user = $this->model->find($id);
+            $user->delete();
         });
     }
 }
