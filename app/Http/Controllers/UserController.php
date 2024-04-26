@@ -50,7 +50,6 @@ class UserController extends Controller
      {
         
         $validated = $request->validated();
-        echo $validated;
         $data = $this->service->create($validated);
         return response($data);
      }
