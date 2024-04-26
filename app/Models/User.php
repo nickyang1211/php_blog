@@ -51,7 +51,7 @@ class User extends Authenticatable
     protected static function booted()
     {
         static::deleting(function (User $user) {
-            $user->articles()->each(function (Blog $blog) {
+            $user->article()->each(function (Blog $blog) {
                 $blog->delete();
             });
         });

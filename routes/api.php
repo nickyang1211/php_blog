@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentConttroller;
 use App\Http\Controllers\UserController;
 
 /*
@@ -37,4 +38,11 @@ Route::controller(BlogController::class)
     Route::post('/','store');
     Route::put('/{id}','update');
     Route::delete('/','destroy');
+});
+
+Route::controller(CommentConttroller::class)
+->group(function () {
+    Route::post('/comment','store');
+    Route::put('/comment/{id}','update');
+    Route::delete('/comment','destroy');
 });

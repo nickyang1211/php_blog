@@ -23,9 +23,24 @@ class Blog extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    protected static function booted()
+    {
+        static::deleting(function (Blog $blog){
+            $blog->comments()->each(function (Comment $comment) {
+                $comment->delete();
+            });
+        });
+    }
+
     protected $casts = [
         'record' => 'array',
     ];
+
 
     
 }

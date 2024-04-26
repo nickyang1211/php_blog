@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Resources;
-use App\Http\Resources\BlogResource;
+
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class CommentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +16,8 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at,
-            'blogs' => BlogResource::collection($this->blogs),
+            'comment' => $this->comment,
+            'author_id' => $this->author_id,
         ];
     }
 }
