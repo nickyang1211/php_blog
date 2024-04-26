@@ -41,7 +41,9 @@ class UserService
     
     public function create(array $validated)
     {
+        print $validated;
         $user = $this->repo->find($validated['email']);
+        print $user;
         if (isset($user)) {
             throw new HttpResponseException(response()->json([
                 "status"=>422,

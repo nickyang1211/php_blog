@@ -6,6 +6,8 @@ use App\Services\UserService;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\UserLoginRequest;
+use App\Http\Requests\UserStoreRequest;
+
 
 class UserController extends Controller
 {
@@ -44,11 +46,13 @@ class UserController extends Controller
      }
  
  
-     public function store(Request $request)
+     public function store(UserStoreRequest $request)
      {
-         $validated = $request->validated();
-         $data = $this->service->create($validated);
-         return response($data);
+        
+        $validated = $request->validated();
+        echo $validated;
+        $data = $this->service->create($validated);
+        return response($data);
      }
  
      public function update(Request $request)
