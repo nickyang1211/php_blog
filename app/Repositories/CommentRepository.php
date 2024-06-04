@@ -2,37 +2,26 @@
 
 namespace App\Repositories;
 
-use App\Models\Blog;
+use App\Models\Comment;
 use Illuminate\Support\Facades\DB;
 
 
-class BlogRepository
+class CommentRepository
 {
-    private Blog $model;
+    private Comment $model;
 
-    public function __construct(Blog $model)
+    public function __construct(Comment $model)
     {
         $this->model = $model;
     }
 
-    public function all() 
-    { 
-        return $this->model::with(['comments'])->get(); 
-    } 
-    
-    public function find(string $id) 
-    { 
-        return $this->model::with(['comments'])->find($id); 
-    }
-    
     public function create(array $validated) 
     { 
         return $this->model->create($validated); 
-    } 
+    }
 
     public function update(array $validated) 
     { 
-        
         return $this->model->find($validated['id'])->update($validated); 
     }
 
@@ -40,7 +29,7 @@ class BlogRepository
     {
         // 数据库事务处理，要不全部成功，要不全部失败
         DB::transaction(function () use ($id) {
-            $blog = $this->model::with(['comments'])->find($id);
+            $blog = $this->model->find($id);
             $blog->delete();
         });
     }
